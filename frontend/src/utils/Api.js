@@ -4,14 +4,23 @@ export class Api {
   }
 
   _getHeaders() {
-    const token = "911005ad-24e0-40bd-a91b-f65ac83a977d";
+    // 1. Intentamos obtener el token del almacenamiento local
+    const token = localStorage.getItem("jwt");
+
     const headers = {
       "Content-Type": "application/json",
-      ...(token && { Authorization: `${token}` }),
     };
-    if (!token) {
-      console.warn("⚠️ No hay token en localStorage");
+
+    // 2. Si el token existe, lo agregamos.
+    // NOTA: En tu propia API usualmente se usa el formato "Bearer TOKEN"
+    if (token) {
+      headers["Authorization"] = `Bearer ${token}`;
+    } else {
+      console.warn(
+        "⚠️ No hay token en localStorage. El acceso podría ser denegado.",
+      );
     }
+
     return headers;
   }
 
@@ -92,5 +101,5 @@ export class Api {
 
 // Instancia de la API de Around de TripleTen
 export const api = new Api({
-  baseUrl: "https://around-api.en.tripleten-services.com/v1",
+  baseUrl: "http://api-around.duckdns.org",
 });
