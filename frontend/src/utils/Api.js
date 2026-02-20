@@ -101,5 +101,5 @@ export class Api {
 
 // Instancia de la API de Around de TripleTen
 export const api = new Api({
-  baseUrl: "http://api-around.duckdns.org",
+  baseUrl: "https://api-around.duckdns.org",
 });
